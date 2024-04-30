@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Chat App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="message"></div>
+    <form>
+      <input type="text" placeholder="Your message..." />
+    </form>
+
+    <script>
+      
+      //for putting the message according to whether it is my message or yours
+      function showMessage(text, isMine = false) {
+        document.getElementById(
+          "message"
+        ).innerHTML += `<div class="message-row ${
+          isMine ? "mine" : "theirs"
+        }"><div class="bubble">${text}</div></div>`;
+      }
+      const ws = new WebSocket("ws://localhost:8080");
+      ws.addEventListener("message", (ev) => {
+        ev.data.text().then(showMessage);
+      });
+
+      document.querySelector("form").onsubmit = (ev) => {
+        ev.preventDefault();
+        const input = document.querySelector("input");
+        ws.send(input.value);
+        showMessage(input.value, true);
+        //clear the input form for new message
+        input.value = "";
+      };
+    </script>
+  </body>
+</html>
