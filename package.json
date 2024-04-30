@@ -1,0 +1,12 @@
+{
+  "name": "webChatApp",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/priyanshuranjan2024/webChatApp.git",
+  "author": "Priyanshu Ranjan <priyanshuranjan2020@gmail.com>",
+  "license": "MIT",
+  "type":"module",
+  "dependencies": {
+    "ws": "^8.17.0"
+  }
+}
